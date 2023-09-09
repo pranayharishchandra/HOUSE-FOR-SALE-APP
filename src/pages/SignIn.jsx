@@ -10,6 +10,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 // https://firebase.google.com/docs/auth/web/start
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from 'react-toastify';
 
 
 function SignIn() {
@@ -29,7 +30,6 @@ function SignIn() {
       ...prevState,
       [e.target.id]: e.target.value,
     }));
-
   }
 
   async function onSubmit(e) {
@@ -44,7 +44,8 @@ function SignIn() {
       }
     }
     catch(error) {
-      console.log('signin error : ', error)
+      // console.log('signin error : ', error)
+      toast.error('Bad User Cradentials')
     }
 
   }
@@ -86,11 +87,6 @@ function SignIn() {
                 !prevState
               )}
             />
-
-            {/* <img src={visibilityIcon} alt='show passowrd'
-              className='showPassword'
-              onClick={() => setShowPassword(!showPassword)}
-            /> */}
 
             <Link to='/forgot-password'
               className='forgotPasswordLink'>

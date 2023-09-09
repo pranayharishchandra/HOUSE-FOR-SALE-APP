@@ -25,7 +25,7 @@ function Profile() {
   return (
     <div>
       {user ? <h1> user : {user.displayName} </h1> : 'not logged in' }
-      <SignIn />
+      {/* <SignIn /> */}
     </div>
   )
 }

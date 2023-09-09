@@ -2,6 +2,10 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 
+// https://fkhadra.github.io/react-toastify/installation/
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import ForgotPassword from './pages/ForgotPassword';
 import Explore from './pages/Explore';
 import Offers  from './pages/Offers';
@@ -27,6 +31,7 @@ function App() {
       
       </Router>
 
+      <ToastContainer />
     </>
   );
 }

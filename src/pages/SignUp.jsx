@@ -12,6 +12,7 @@ import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 
 // importing db from the config
 import { db } from '../firebase.config';
+import { toast } from 'react-toastify';
 
 
 function SignUp() {
@@ -78,7 +79,8 @@ function SignUp() {
     } 
     catch (error) {
       // Handle any errors that may occur during registration
-      console.error('Error during registration:', error);
+      // console.error('Error during registration:', error);
+      toast.error('Error Signing-in')
     }
     
   }
