@@ -4,6 +4,14 @@ import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRig
 import visibilityIcon from '../assets/svg/visibilityIcon.svg'
 import { Link, useNavigate } from 'react-router-dom';
 
+
+
+
+
+// https://firebase.google.com/docs/auth/web/start
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
 function SignIn() {
 
   const [showPassword, setShowPassword] = useState(false);
@@ -21,7 +29,24 @@ function SignIn() {
       ...prevState,
       [e.target.id]: e.target.value,
     }));
-    
+
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault(); 
+
+    try {
+      const auth = getAuth();
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+      if (userCredential.user) {
+        navigate('/')
+      }
+    }
+    catch(error) {
+      console.log('signin error : ', error)
+    }
+
   }
 
 
@@ -36,7 +61,7 @@ function SignIn() {
           </p>
         </header>
 
-        <form action="">
+        <form onSubmit={onSubmit}>
 
           <input type='email'
             className='emailInput'
@@ -76,9 +101,9 @@ function SignIn() {
               <p className='signInText'>
                 Sign In
               </p>
-                <button className="signInButton">
-                  <ArrowRightIcon fill='white' width='34px' height='34px' />
-                </button>
+              <button className="signInButton">
+                <ArrowRightIcon fill='white' width='34px' height='34px' />
+              </button>
             </div>
 
           </div>
