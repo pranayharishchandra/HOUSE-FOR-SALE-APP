@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import SignIn  from './pages/SignIn';
 import SignUp  from './pages/SignUp';
 import Navbar  from './components/Navbar';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -21,10 +22,17 @@ function App() {
         <Routes>
           <Route path='/'               element={<Explore        />} />
           <Route path='/offers'         element={<Offers         />} />
-          <Route path='/profile'        element={<Profile        />} />
+
+          {/* nesting route because we don't want profile to get rendered immediately,
+          we want to get rendered after the data is fetched from firebase, 
+          whether we are logged in or not */}
+          <Route   path='/profile'      element={<PrivateRoute /> }   >
+            <Route path='/profile'      element={<Profile        />} />
+          </Route> 
+
           <Route path='/sign-in'        element={<SignIn         />} />
           <Route path='/sign-up'        element={<SignUp         />} />
-          <Route path='/forgotPassword' element={<ForgotPassword />} />
+          <Route path='/forgotPassword' element={<ForgotPassword />} /> 
         </Routes>
 
         <Navbar />

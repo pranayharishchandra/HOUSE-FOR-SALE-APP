@@ -44,7 +44,7 @@ function SignIn() {
       }
     }
     catch(error) {
-      // console.log('signin error : ', error)
+      console.log('Signin.jsx, onSubmit, error: ', error)
       toast.error('Bad User Cradentials')
     }
 
