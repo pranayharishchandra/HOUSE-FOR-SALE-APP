@@ -13,6 +13,7 @@ import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 // importing db from the config
 import { db } from '../firebase.config';
 import { toast } from 'react-toastify';
+import OAuth from '../components/OAuth';
 
 
 function SignUp() {
@@ -33,7 +34,7 @@ function SignUp() {
       ...prevState,
       [e.target.id]: e.target.value,
     }));
-    
+
   }
 
   async function onSubmit(e) {
@@ -42,29 +43,29 @@ function SignUp() {
     try {
       // Getting the authentication object using getAuth()
       const auth = getAuth();
-    
+
       // Registering the user using createUserWithEmailAndPassword(), which returns a promise
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    
+
       // Extracting the user object from userCredential
       const user = userCredential.user;
-    
+
       // Updating the user's display name
       await updateProfile(auth.currentUser, {
         displayName: name,
       });
-    
+
       // ADDING INTO DATABASE
-    
+
       // Creating a copy of the formData object to avoid modifying the original state
       const formDataCopy = { ...formData };
-    
+
       // Removing the 'password' field from formDataCopy
       delete formDataCopy.password;
-    
+
       // Adding a 'timeStamp' field to formDataCopy with the current server timestamp
       formDataCopy.timeStamp = serverTimestamp();
-    
+
       /*
         1. setDoc() is used to update the database.
         2. db is the database instance that was imported from the configuration.
@@ -73,16 +74,16 @@ function SignUp() {
         5. formDataCopy contains the data you want to store in the database.
       */
       await setDoc(doc(db, 'users', user.uid), formDataCopy);
-    
+
       // Navigating to a different page, presumably after a successful registration
       navigate('/');
-    } 
+    }
     catch (error) {
       // Handle any errors that may occur during registration
       // console.error('Error during registration:', error);
       toast.error('Error Signing-in')
     }
-    
+
   }
 
 
@@ -131,27 +132,26 @@ function SignUp() {
               )}
             />
 
-            {/* <img src={visibilityIcon} alt='show passowrd'
-              className='showPassword'
-              onClick={() => setShowPassword(!showPassword)}
-            /> */}
-
             <Link to='/forgot-password'
               className='forgotPasswordLink'>
               Forgot Password
             </Link>
-
-            <div className='signUpBar'>
-              <p className='signUpText'>
-                Sign Up
-              </p>
+            
+            <button type='submit' style={{ backgroundColor: 'inherit' }}>
+              <div className='signUpBar'>
+                <p className='signUpText'>
+                  Sign Up
+                </p>
                 <button className="signUpButton">
                   <ArrowRightIcon fill='white' width='34px' height='34px' />
                 </button>
-            </div>
+              </div>
+            </button>
 
           </div>
         </form>
+
+        <OAuth />
 
         <Link to='/sign-in' className='registerLink'>
           Sign In Instead

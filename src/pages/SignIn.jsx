@@ -11,6 +11,7 @@ import { Link, useNavigate } from 'react-router-dom';
 // https://firebase.google.com/docs/auth/web/start
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { toast } from 'react-toastify';
+import OAuth from '../components/OAuth';
 
 
 function SignIn() {
@@ -33,7 +34,7 @@ function SignIn() {
   }
 
   async function onSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
 
     try {
       const auth = getAuth();
@@ -43,7 +44,7 @@ function SignIn() {
         navigate('/')
       }
     }
-    catch(error) {
+    catch (error) {
       console.log('Signin.jsx, onSubmit, error: ', error)
       toast.error('Bad User Cradentials')
     }
@@ -93,22 +94,26 @@ function SignIn() {
               Forgot Password
             </Link>
 
-            <div className='signInBar'>
-              <p className='signInText'>
-                Sign In
-              </p>
-              <button className="signInButton">
-                <ArrowRightIcon fill='white' width='34px' height='34px' />
-              </button>
-            </div>
+            <button type='submit' style={{ backgroundColor: 'inherit' }}>
+              <div className='signInBar'>
+                <p className='signInText'>
+                  Sign In
+                </p>
+                <button className="signInButton">
+                  <ArrowRightIcon fill='white' width='34px' height='34px' />
+                </button>
+              </div>
+            </button>
 
           </div>
-        </form>
+        </form >
+
+        <OAuth />
 
         <Link to='/sign-up' className='registerLink'>
           Sign Up Instead
         </Link>
-      </div>
+      </div >
 
 
     </>
